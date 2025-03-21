@@ -2,6 +2,7 @@
 	import { onDestroy, type Snippet } from 'svelte';
 
 	import { freezeContext } from './context.js';
+	import { useIsFrozen } from './effect.svelte.js';
 
 	interface Props {
 		frozen: boolean;
@@ -10,7 +11,8 @@
 
 	const { frozen, children }: Props = $props();
 
-	const isFrozen = $derived(!!frozen);
+	const parentIsFrozen = useIsFrozen();
+	const isFrozen = $derived(parentIsFrozen() || !!frozen);
 
 	// As a precaution, prevents lingering `useEventHandler` from being called
 	let destroyed = false;
@@ -21,7 +23,7 @@
 	freezeContext.set({
 		frozen() {
 			return destroyed || isFrozen;
-		}
+		},
 	});
 </script>
 
