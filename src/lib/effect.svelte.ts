@@ -81,6 +81,9 @@ export const createEventHandler = <A extends any[]>(fn: (...args: A) => void): (
 			return;
 		}
 
+		// Clear out stored args
+		storedArgs = undefined;
+
 		fn(...args);
 	};
 };
