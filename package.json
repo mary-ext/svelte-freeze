@@ -1,5 +1,6 @@
 {
 	"name": "svelte-freeze",
+	"description": "Provides freeze-like functionality",
 	"version": "0.1.0",
 	"scripts": {
 		"dev": "vite dev",
