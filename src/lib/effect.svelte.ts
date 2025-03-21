@@ -58,13 +58,13 @@ export const createEffect = (fn: () => void): void => {
  * @param fn The function to wrap
  * @returns A wrapped version of the function
  */
-export const createEventHandler = <A extends any[]>(
-	fn: (...args: A) => void
-): ((...args: A) => void) => {
+export const createEventHandler = <A extends any[]>(fn: (...args: A) => void): ((...args: A) => void) => {
 	const frozen = useIsFrozen();
 
 	let storedArgs: A | undefined;
 
+	// We can't use `createRenderEffect` here because this effect isn't tracking
+	// any states other than `frozen()`.
 	$effect.pre(() => {
 		if (!frozen() && storedArgs !== undefined) {
 			const args = storedArgs;
