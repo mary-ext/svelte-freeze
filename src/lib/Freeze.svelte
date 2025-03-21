@@ -14,15 +14,15 @@
 	const parentIsFrozen = useIsFrozen();
 	const isFrozen = $derived(parentIsFrozen() || !!frozen);
 
-	// As a precaution, prevents lingering `useEventHandler` from being called
-	let destroyed = false;
+	// As a precaution, allows lingering `useEventHandler` to pass through.
+	let alive = true;
 	onDestroy(() => {
-		destroyed = true;
+		alive = false;
 	});
 
 	freezeContext.set({
 		frozen() {
-			return destroyed || isFrozen;
+			return alive && isFrozen;
 		},
 	});
 </script>
