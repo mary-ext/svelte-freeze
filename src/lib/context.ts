@@ -4,8 +4,17 @@ export interface FreezeContext {
 	frozen: () => boolean;
 }
 
-export const DEFAULT_FREEZE_CONTEXT: FreezeContext = {
-	frozen: () => false
+export const freezeContext = new Context<FreezeContext>('svelte-freeze');
+
+const DEFAULT_FREEZE_CONTEXT: FreezeContext = {
+	frozen: () => false,
 };
 
-export const freezeContext = new Context<FreezeContext>('svelte-freeze');
+/**
+ * Provides access to the current freeze state.
+ */
+export const useIsFrozen = (): (() => boolean) => {
+	const { frozen } = freezeContext.getOr(DEFAULT_FREEZE_CONTEXT);
+
+	return frozen;
+};

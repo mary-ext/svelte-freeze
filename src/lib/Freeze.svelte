@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { onDestroy, type Snippet } from 'svelte';
 
-	import { freezeContext } from './context.js';
-	import { useIsFrozen } from './effect.svelte.js';
+	import { freezeContext, useIsFrozen } from './context.js';
 
 	interface Props {
 		frozen: boolean;

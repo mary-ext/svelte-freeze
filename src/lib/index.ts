@@ -1,3 +1,4 @@
 export { default as Freeze } from './Freeze.svelte';
 
-export { createEffect, createEventHandler, createRenderEffect, useIsFrozen } from './effect.svelte.js';
+export { useIsFrozen } from './context.js';
+export { createEffect, createEventHandler, createRenderEffect } from './effect.svelte.js';

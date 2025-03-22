@@ -1,15 +1,6 @@
 import { untrack } from 'svelte';
 
-import { DEFAULT_FREEZE_CONTEXT, freezeContext } from './context.js';
-
-/**
- * Provides access to the current freeze state.
- */
-export const useIsFrozen = (): (() => boolean) => {
-	const { frozen } = freezeContext.getOr(DEFAULT_FREEZE_CONTEXT);
-
-	return frozen;
-};
+import { useIsFrozen } from './context.js';
 
 /**
  * Runs code right before the DOM is updated
