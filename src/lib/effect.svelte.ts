@@ -79,3 +79,43 @@ export const createEventHandler = <A extends any[]>(fn: (...args: A) => void): (
 		});
 	};
 };
+
+const none = Symbol();
+
+export interface Derived<T> {
+	current: T;
+}
+
+/**
+ * Creates a derived state
+ */
+export const createDerived = <T>(fn: () => T): Derived<T> => {
+	const frozen = useIsFrozen();
+
+	let lastValue: T | typeof none = none;
+	let derived = $derived.by(() => {
+		// We don't want deriveds to rerun upon freezing
+		if (untrack(frozen)) {
+			// Now that we know, track the frozen state so we can get unfrozen
+			frozen();
+
+			// If we're initialized during a freeze, we need to compute regardless
+			if (lastValue === none) {
+				lastValue = untrack(fn);
+			}
+
+			return lastValue;
+		}
+
+		return (lastValue = fn());
+	});
+
+	return {
+		get current() {
+			return derived;
+		},
+		set current(next) {
+			derived = next;
+		},
+	};
+};
