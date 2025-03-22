@@ -91,6 +91,25 @@ export interface ReadonlyRef<T> extends Ref<T> {
 }
 
 /**
+ * Creates a state
+ */
+export const createState: {
+	<T>(): Ref<T | undefined>;
+	<T>(initialValue: T): Ref<T>;
+} = <T>(initialValue?: T): Ref<T | undefined> => {
+	let state = $state.raw(initialValue);
+
+	return {
+		get value() {
+			return state;
+		},
+		set value(next) {
+			state = next;
+		},
+	};
+};
+
+/**
  * Creates a derived state
  */
 export const createMemo = <T>(fn: () => T): Ref<T> => {
