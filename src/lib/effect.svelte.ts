@@ -14,7 +14,7 @@ export const useIsFrozen = (): (() => boolean) => {
 /**
  * Runs code right before the DOM is updated
  */
-export const createRenderEffect = (fn: () => void): void => {
+export const createRenderEffect = (fn: () => void | (() => void)): void => {
 	const frozen = useIsFrozen();
 
 	$effect.pre(() => {
@@ -33,7 +33,7 @@ export const createRenderEffect = (fn: () => void): void => {
 /**
  * Runs code right after the DOM is updated
  */
-export const createEffect = (fn: () => void): void => {
+export const createEffect = (fn: () => void | (() => void)): void => {
 	const frozen = useIsFrozen();
 
 	$effect(() => {
@@ -45,7 +45,7 @@ export const createEffect = (fn: () => void): void => {
 			return;
 		}
 
-		fn();
+		return fn();
 	});
 };
 
