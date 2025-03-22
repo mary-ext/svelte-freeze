@@ -1,7 +1,13 @@
 import { tick } from 'svelte';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { createEffect, createEventHandler, createRenderEffect } from './effect.svelte.js';
+import {
+	createEffect,
+	createEventHandler,
+	createMemo,
+	createRenderEffect,
+	type Ref,
+} from './effect.svelte.js';
 
 let frozen = $state(false);
 let cleanup: (() => void) | undefined;
@@ -118,5 +124,35 @@ describe('createEventHandler', () => {
 
 		expect(mock).toHaveBeenCalledTimes(2);
 		expect(mock).toHaveBeenCalledWith(4);
+	});
+});
+
+describe('createMemo', () => {
+	it('should work', async () => {
+		let count = $state(0);
+		let doubled!: Ref<number>;
+
+		cleanup = $effect.root(() => {
+			doubled = createMemo(() => count * 2);
+		});
+
+		expect(doubled.value).toBe(0);
+
+		count = 2;
+		await tick();
+
+		expect(doubled.value).toBe(4);
+
+		frozen = true;
+		count = 4;
+		await tick();
+
+		expect(doubled.value).toBe(4);
+
+		frozen = false;
+		count = 6;
+		await tick();
+
+		expect(doubled.value).toBe(12);
 	});
 });
