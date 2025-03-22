@@ -93,7 +93,7 @@ export interface ReadonlyRef<T> extends Ref<T> {
 /**
  * Creates a derived state
  */
-export const createDerived = <T>(fn: () => T): Ref<T> => {
+export const createMemo = <T>(fn: () => T): Ref<T> => {
 	const frozen = useIsFrozen();
 
 	let lastValue: T | typeof none = none;

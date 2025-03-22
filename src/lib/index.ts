@@ -2,9 +2,9 @@ export { default as Freeze } from './Freeze.svelte';
 
 export { useIsFrozen } from './context.js';
 export {
-	createDerived,
 	createEffect,
 	createEventHandler,
+	createMemo,
 	createRenderEffect,
 	type ReadonlyRef,
 	type Ref,
