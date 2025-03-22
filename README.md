@@ -16,11 +16,6 @@ though users can't see them.
 svelte-freeze attempts to address this by providing freeze-aware effects and event handlers for
 library and app developers to use.
 
-> [!NOTE]  
-> Unlike React's Suspense, svelte-freeze doesn't hide elements from DOM. UI components remain
-> visible but any reactive effects and handlers are frozen. You'll need to handle the visibility of
-> frozen components yourself.
-
 ## Quick start
 
 #### 1. Replace reactive effects with freeze-aware versions
@@ -66,3 +61,8 @@ Wrap components in `<Freeze>` to control their frozen state:
 
 When `frozen` is true, all freeze-aware effects within the component tree will stop executing,
 preserving resources while maintaining component state.
+
+> [!NOTE]  
+> Unlike React's Suspense, svelte-freeze doesn't hide elements from DOM. UI components remain
+> visible but any reactive effects and handlers are frozen. You'll need to handle the visibility of
+> frozen components yourself.
