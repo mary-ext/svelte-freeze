@@ -83,11 +83,11 @@ export const createEventHandler = <A extends any[]>(fn: (...args: A) => void): (
 const none = Symbol();
 
 export interface Ref<T> {
-	current: T;
+	value: T;
 }
 
 export interface ReadonlyRef<T> extends Ref<T> {
-	readonly current: T;
+	readonly value: T;
 }
 
 /**
@@ -115,10 +115,10 @@ export const createMemo = <T>(fn: () => T): Ref<T> => {
 	});
 
 	return {
-		get current() {
+		get value() {
 			return derived;
 		},
-		set current(next) {
+		set value(next) {
 			derived = next;
 		},
 	};
