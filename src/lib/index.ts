@@ -6,5 +6,6 @@ export {
 	createEffect,
 	createEventHandler,
 	createRenderEffect,
-	type Derived,
+	type ReadonlyRef,
+	type Ref,
 } from './effect.svelte.js';

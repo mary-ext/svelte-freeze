@@ -82,14 +82,18 @@ export const createEventHandler = <A extends any[]>(fn: (...args: A) => void): (
 
 const none = Symbol();
 
-export interface Derived<T> {
+export interface Ref<T> {
 	current: T;
+}
+
+export interface ReadonlyRef<T> extends Ref<T> {
+	readonly current: T;
 }
 
 /**
  * Creates a derived state
  */
-export const createDerived = <T>(fn: () => T): Derived<T> => {
+export const createDerived = <T>(fn: () => T): Ref<T> => {
 	const frozen = useIsFrozen();
 
 	let lastValue: T | typeof none = none;
