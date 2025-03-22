@@ -66,15 +66,16 @@ export const createEventHandler = <A extends any[]>(fn: (...args: A) => void): (
 	});
 
 	return (...args) => {
-		// Don't track freeze state
-		if (untrack(frozen)) {
-			storedArgs = args;
-			return;
-		}
+		// Don't track anything.
+		// When freezing, the caller won't be tracking anything from `fn`.
+		return untrack(() => {
+			if (frozen()) {
+				storedArgs = args;
+				return;
+			}
 
-		// Clear out stored args
-		storedArgs = undefined;
-
-		fn(...args);
+			storedArgs = undefined;
+			fn(...args);
+		});
 	};
 };
