@@ -1,7 +1,7 @@
 {
 	"name": "svelte-freeze",
 	"description": "Provides freeze-like functionality",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run prepack",
