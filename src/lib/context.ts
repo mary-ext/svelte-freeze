@@ -14,7 +14,10 @@ const DEFAULT_FREEZE_CONTEXT: FreezeContext = {
  * Provides access to the current freeze state.
  */
 export const useIsFrozen = (): (() => boolean) => {
-	const { frozen } = freezeContext.getOr(DEFAULT_FREEZE_CONTEXT);
-
-	return frozen;
+	try {
+		const { frozen } = freezeContext.getOr(DEFAULT_FREEZE_CONTEXT);
+		return frozen;
+	} catch {
+		return DEFAULT_FREEZE_CONTEXT.frozen;
+	}
 };
