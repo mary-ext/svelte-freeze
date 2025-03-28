@@ -1,6 +1,7 @@
 {
 	"name": "svelte-freeze",
 	"description": "Provides freeze-like functionality",
+	"license": "MIT",
 	"version": "0.1.5",
 	"scripts": {
 		"dev": "vite dev",
